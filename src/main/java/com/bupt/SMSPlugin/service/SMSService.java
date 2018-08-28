@@ -14,7 +14,7 @@ public class SMSService {
         HttpClient client = new HttpClient();
         PostMethod post = new PostMethod("http://gbk.api.smschinese.cn");
         post.addRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=gbk");//在头文件中设置转码
-        NameValuePair[] data ={ new NameValuePair("Uid", "本站用户名"),new NameValuePair("Key", "接口安全秘钥"),new NameValuePair("smsMob",phone),new NameValuePair("smsText",text)};
+        NameValuePair[] data ={ new NameValuePair("Uid", "youzi5"),new NameValuePair("Key", "d41d8cd98f00b204e980"),new NameValuePair("smsMob",phone),new NameValuePair("smsText",text)};
         post.setRequestBody(data);
 
         client.executeMethod(post);

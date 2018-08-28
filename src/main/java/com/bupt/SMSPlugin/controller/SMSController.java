@@ -6,13 +6,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.Future;
 
+@RestController
 @RequestMapping("/api/v1/smsplugin")
 public class SMSController {
 
@@ -24,11 +22,10 @@ public class SMSController {
     public Future<String> sendSms(@RequestBody String jsonStr) throws Exception{
         JsonObject jsonObj = (JsonObject)new JsonParser().parse(jsonStr);
         SMSData smsData = new SMSData(jsonObj);
-        String result="";
+        String result;
 
-        for(String phone:smsData.getPhones()){
-            result=result.concat(smsService.sendSms(phone,smsData.getText())+"|");
-        }
+        result = smsService.sendSms(smsData.getPhones(),smsData.getText());
+
 
         return new AsyncResult<String>(result);
     }
